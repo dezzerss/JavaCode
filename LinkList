@@ -1,0 +1,37 @@
+package ru.Vsuet.mtx; 
+ 
+import java.util.function.Predicate; 
+ 
+public interface IList { 
+ 
+ /** 
+ * adds value into list tail 
+ * */ 
+ void add(int value); 
+ 
+ /** 
+ * adds value into list by index 
+ * [id153965260|@param] idx 
+ * [id153965260|@param] value 
+ */ 
+ void add(int idx, int value); 
+ 
+ /** 
+ * removes element by index 
+ * [id153965260|@param] idx 
+ */ 
+ void remove(int idx); 
+ 
+ /** 
+ * removes element by condition 
+ * [id153965260|@param] predicate 
+ */ 
+ void remove(Predicate<Integer> predicate); 
+ 
+ /** 
+ * returns element by index 
+ * [id153965260|@param] idx 
+ * [id623884962|@return] 
+ */ 
+ int get(int idx); 
+}
