@@ -1,0 +1,208 @@
+import java.sql.SQLOutput;
+import java.util.function.Predicate;
+
+public class LinkList implements IList {
+    private Node head;
+    private int size;
+
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+        }
+    }
+
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node currentNode = head;
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+        }
+        size++;
+    }
+
+    @Override
+    public void add(int idx, int value) {
+        Node newNode = new Node(value);
+        if (idx == 0) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            Node prevNode = head;
+            for (int i = 0; i < idx - 1; i++) {
+                prevNode = prevNode.next;
+            }
+            newNode.next = prevNode.next;
+            prevNode.next = newNode;
+        }
+        size++;
+    }
+
+    public void remove(int data) {
+        if (head == null) {
+            return;
+        }
+        if (head.data == data) {
+            head = head.next;
+            size--;
+            return;
+        }
+        Node currentNode = head;
+        while (currentNode.next != null) {
+            if (currentNode.next.data == data) {
+                currentNode.next = currentNode.next.next;
+                size--;
+                return;
+            }
+            currentNode = currentNode.next;
+        }
+    }
+
+    @Override
+    public void remove(Predicate<Integer> condition) {
+        if (head == null) {
+            return;
+        }
+        Node currentNode = head;
+        while (currentNode.next != null) {
+            if (condition.test(currentNode.next.data)) {
+                currentNode.next = currentNode.next.next;
+                size--;
+                return;
+            }
+            currentNode = currentNode.next;
+        }
+    }
+
+    @Override
+    public int get(int idx) {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        Node currentNode = head;
+        while (currentNode != null) {
+            ЗДЕСЬ НУЖНО ДОДЕЛАТЬ !!!!!!!!!!!
+        }
+        return "LinkList{}";
+    }
+
+    public void print(int data) {
+        Node currentNode = head;
+        while (currentNode != null) {
+            if (currentNode.data == data) {
+                System.out.println(currentNode.data);
+                return;
+            }
+            currentNode = currentNode.next;
+        }
+        System.out.println("Элемент с id " + data + " не найден.");
+    }
+
+    public void printAll() {
+        if (head == null) {
+            System.out.println("Список пуст");
+            return;
+        }
+        Node currentNode = head;
+        while (currentNode != null) {
+            System.out.print(currentNode.data + " ");
+            currentNode = currentNode.next;
+        }
+    }
+}
+MAIN /////////////////////
+import java.util.function.Predicate;
+
+public class Main {
+    public static void main(String[] args) {
+        LinkList list = new LinkList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        System.out.println("Element with index: " + 3 + " = " + list.get(3));
+        list.remove(2);
+        list.add(0, 0);
+        list.add(2,5);
+        list.print(2);
+        list.printAll();
+
+        Predicate<String> c = value -> value.equals("test");
+
+        list.remove(value -> value == 5);
+        list.remove(value -> value < 0);
+
+        System.out.println(list);
+    }
+}
+INTERFERENCE IGList ////////////
+import java.util.function.Predicate;
+
+/**
+ * implementations should work with int type
+ */
+public interface IGList<T> {
+
+    /**
+     * inserts value into tail
+     * @param value
+     */
+    void add(T value);
+
+    /**
+     * inserts value into list by index
+     * @param idx
+     * @param value
+     */
+    void add(int idx, T value);
+
+    void remove(int idx);
+
+    /**
+     * removes element by specified condition (example: x == 5)
+     * @param condition
+     */
+    void remove(Predicate<T> condition);
+
+    T get(int idx);
+}
+INTERFERENCE IList /////////////////
+import java.util.function.Predicate;
+
+/**
+ * implementations should work with int type
+ */
+public interface IList {
+
+    /**
+     * inserts value into tail
+     * @param value
+     */
+    void add(int value);
+
+    /**
+     * inserts value into list by index
+     * @param idx
+     * @param value
+     */
+    void add(int idx, int value);
+
+    void remove(int idx);
+
+    /**
+     * removes element by specified condition (example: x == 5)
+     * @param condition
+     */
+    void remove(Predicate<Integer> condition);
+
+    int get(int idx);
+}
