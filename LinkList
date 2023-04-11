@@ -184,3 +184,66 @@ public class Main {
        System.out.println(list); // [1, 2, 4, ...]
     }
 }
+
+///////////////////////////////////////////////
+import java.util.function.Predicate;
+
+/**
+ * implementations should work with int type
+ */
+public interface IList {
+
+    /**
+     * inserts value into tail
+     * @param value
+     */
+    void add(int value);
+
+    /**
+     * inserts value into list by index
+     * @param idx
+     * @param value
+     */
+    void add(int idx, int value);
+
+    void remove(int idx);
+
+    /**
+     * removes element by specified condition (example: x == 5)
+     * @param condition
+     */
+    void remove(Predicate<Integer> condition);
+
+    int get(int idx);
+}
+/////////////////////////////////////////////////////////////
+import java.util.function.Predicate;
+
+/**
+ * implementations should work with int type
+ */
+public interface IGList<T> {
+
+    /**
+     * inserts value into tail
+     * @param value
+     */
+    void add(T value);
+
+    /**
+     * inserts value into list by index
+     * @param idx
+     * @param value
+     */
+    void add(int idx, T value);
+
+    void remove(int idx);
+
+    /**
+     * removes element by specified condition (example: x == 5)
+     * @param condition
+     */
+    void remove(Predicate<T> condition);
+
+    T get(int idx);
+}
