@@ -4,6 +4,6 @@ public class reverseString {
         for (int i = 0;i < str.length();i++) {
             result = Character.toLowerCase(str.charAt(i)) + result;
         }
-        return "Привет " + result;
+        return "Привет, " + result + "!";
     }
 }
