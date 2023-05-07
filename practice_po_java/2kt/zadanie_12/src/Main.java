@@ -9,7 +9,7 @@ public class Main {
         int numberOfNumbers = sc.nextInt();
         String result = "";
         for (int i = 1; i <= numberOfNumbers; i += startAndStep) {
-            result += (int) Math.pow(i, 2) + ",";
+            result += (int) Math.pow(i, 2) + " ";
         }
         System.out.println(result);
     }
