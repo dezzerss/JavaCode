@@ -8,14 +8,14 @@ public class Main {
         int open = 0;
         int closed = 0;
         for (int i = 0;i < str.length();i++) {
-            char check = str.charAt(i);
-            if (check == '(') {
-                open++;
+            char checkStr = str.charAt(i);
+            if (checkStr == '(') {
+                open += 1;
             } else {
-                closed++;
+                closed += 1;
             }
         }
-        if (open == closed) {
+        if (closed == open) {
             System.out.println("true");
         } else {
             System.out.println("false");
