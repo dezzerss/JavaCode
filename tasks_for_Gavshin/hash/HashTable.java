@@ -2,7 +2,7 @@ import java.util.NoSuchElementException;
 
 public class HashTable<T> {
     private final int INITIAL_ACCOMMODATION = 16;
-    // загрузка, при достижении которой происходит увеличение табоицы
+    // загрузка, при достижении которой происходит увеличение таблицы
     private final double LOADING = 0.75;
 
     private ListNode<T>[] table;
@@ -16,7 +16,7 @@ public class HashTable<T> {
     private int hash(T key) {
         return key.hashCode() % table.length;
     }
-
+    // метод, который увеличивает кол-во значений таблицы, после того, как превышается загрузка 
     private void resize() {
         ListNode<T>[] newTable = new ListNode[table.length * 2];
         for (int i = 0; i < table.length; i++) {
