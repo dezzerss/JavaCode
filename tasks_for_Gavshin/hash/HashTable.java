@@ -2,20 +2,21 @@ import java.util.NoSuchElementException;
 
 public class HashTable<T> {
     private final int INITIAL_ACCOMMODATION = 16;
+    // загрузка, при достижении которой происходит увеличение таблицы
     private final double LOADING = 0.75;
 
     private ListNode<T>[] table;
     private int size;
-
+    
     public HashTable() {
         table = new ListNode[INITIAL_ACCOMMODATION];
         size = 0;
     }
-
+    // вычисление индекса элемента в массиве table, по его ключу key
     private int hash(T key) {
         return key.hashCode() % table.length;
     }
-
+    // метод, который увеличивает кол-во значений таблицы, после того, как превышается загрузка 
     private void resize() {
         ListNode<T>[] newTable = new ListNode[table.length * 2];
         for (int i = 0; i < table.length; i++) {
@@ -30,7 +31,7 @@ public class HashTable<T> {
         }
         table = newTable;
     }
-
+    // метод, для добавлния элемента с ключем 
     public void put(T key) {
         if ((double) size / table.length >= LOADING) {
             resize();
@@ -50,7 +51,7 @@ public class HashTable<T> {
         table[index] = newNode;
         size++;
     }
-
+    // метод, для поиска элемента хеш таблицы, по его ключу 
     public T get(T key) {
         int index = hash(key);
         ListNode<T> curr = table[index];
@@ -62,7 +63,7 @@ public class HashTable<T> {
         }
         throw new NoSuchElementException("Key not found");
     }
-
+    // метод, для добавление элемента, по его ключу 
     public boolean remove(T key) {
         int index = hash(key);
         ListNode<T> curr = table[index];
