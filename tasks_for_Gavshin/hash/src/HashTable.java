@@ -1,14 +1,14 @@
 public class HashTable {
-    private int capacity; // хранит текущую емкость хештабл
-    private int size; // хранит текущее количество элементов в хештабл
-    private Node[] table; // массив узлов хештабл
+    private int capacity; 
+    private int size; 
+    private Node[] table; 
 
-    public HashTable(int capacity) { // принимает начальную ёмкость и иницмализирует поля выше
+    public HashTable(int capacity) { 
         this.capacity = capacity;
         this.size = 0;
         this.table = new Node[capacity];
     }
-
+    
     private int hashCode(String key) { // метод хеширования(проверка информации)
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
@@ -18,9 +18,10 @@ public class HashTable {
     }
 
     private static class Node {
-        private final String key; // хранит ключ элемента
-        private final String value; // хранит значение элемента
-        private Node next; // ссылка на следующий узел
+        // хранение данных
+        private final String key; 
+        private final String value; 
+        private Node next; 
 
         public Node(String key, String value) {
             this.key = key;
@@ -29,11 +30,11 @@ public class HashTable {
         }
     }
 
-    private void resize() { // Увеличение емкости массива в два раза
+    private void resize() { // увеличение емкости массива в два раза, при достижении предела
         capacity *= 2;
         Node[] newTable = new Node[capacity];
 
-        for (Node node : table) { // Перехеширование элементов в новый массив
+        for (Node node : table) { // перехеширование элементов в новый массив
             Node current = node;
             while (current != null) {
                 Node next = current.next;
@@ -47,11 +48,9 @@ public class HashTable {
     }
 
     public void put(String key, String value) {
-        //добовляют новую пару ключ/значение
         int index = hashCode(key) % capacity;
         Node newNode = new Node(key, value);
-
-        // Поиск элемента с таким же ключом
+        
         Node current = table[index];
         while (current != null) {
             if (current.key.equals(key)) {
@@ -59,25 +58,22 @@ public class HashTable {
             }
             current = current.next;
         }
-
-        // Добавление нового элемента
+        
         newNode.next = table[index];
         table[index] = newNode;
         size++;
-
+       
         // Проверка предела загрузки и изменение размера массива при необходимости
         if (size >= capacity * 0.75) {
             resize();
         }
     }
 
-    public boolean remove(String key) {
-        //удаляет элементы
+    public boolean remove(String key) {        
         int index = hashCode(key) % capacity;
         Node current = table[index];
         Node remv = null;
 
-        // Поиск элемента с указанным ключом
         while (current != null) {
             if (current.key.equals(key)) {
                 if (remv != null) {
@@ -95,19 +91,17 @@ public class HashTable {
     }
 
     public String get(String key) {
-        // возвращает значение, связанное с указанным ключом
+        // возвращает значение, по нашему ключу
         int index = hashCode(key) % capacity;
         Node current = table[index];
 
-        // Поиск элемента с указанным ключом
         while (current != null) {
             if (current.key.equals(key)) {
                 return current.value;
             }
             current = current.next;
         }
-
-        return null; // Элемент с указанным ключом не найден
+        return null; // Если элемент с указанным ключем не найден, программа выведет null
     }
 
     public String[] keys() {
