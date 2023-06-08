@@ -1,5 +1,5 @@
 public class HashTable {
-    private final int CAPACITY = 16;
+    private final int CAPACITY = 10;
     private final double LOAD = 0.75;
     private int size;
     private Node[] table;
@@ -52,7 +52,7 @@ public class HashTable {
             resize();
         }
 
-        int index = hashCode(key) % CAPACITY;
+        int index = hashCode(key) % table.length;
         Node newNode = new Node(key, value);
 
         Node current = table[index];
@@ -74,7 +74,7 @@ public class HashTable {
     }
 
     public boolean remove(String key) {
-        int index = hashCode(key) % CAPACITY;
+        int index = hashCode(key) % table.length;
         Node current = table[index];
         Node remv = null;
 
@@ -96,7 +96,7 @@ public class HashTable {
 
     public String get(String key) {
         // возвращает значение, по нашему ключу
-        int index = hashCode(key) % CAPACITY;
+        int index = hashCode(key) % table.length;
         Node current = table[index];
 
         while (current != null) {
